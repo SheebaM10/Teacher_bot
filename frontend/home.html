@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - Bot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      background-color: #34495e;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 200px;
+      padding: 10px 0;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .dropdown a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #3b5998;
+    }
+
+    .welcome-message {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <div>Welcome to Bot</div>
+  </div>
+
+  <div id="dropdownMenu" class="dropdown">
+    <a href="upload.html">Upload PDF</a>
+    <a href="teacher_bot.html">Teacher AI Bot</a>
+    <a href="question_bot.html">Question Bot</a>
+    <a href="evaluation_bot.html">Teacher Evaluation Bot</a>
+  </div>
+
+  <div class="welcome-message">
+    <h2>Welcome to Bot!</h2>
+    <p>Select an option from the hamburger menu.</p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
