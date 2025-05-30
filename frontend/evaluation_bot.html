@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Evaluation Bot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #2980b9;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1f6390;
+    }
+
+    #feedback {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+      border-left: 5px solid #2980b9;
+    }
+
+    #loading {
+      display: none;
+      margin-top: 20px;
+      color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div>Teacher Evaluation Bot</div>
+  </div>
+
+  <div class="container">
+    <h2>Upload a Student's Answer Sheet (PDF or Word)</h2>
+    <input type="file" id="fileInput" accept=".pdf,.doc,.docx" />
+    <button onclick="evaluateExam()">Evaluate</button>
+    <div id="loading">⏳ Evaluating... Please wait.</div>
+    <div id="feedback"></div>
+  </div>
+
+  <script>
+    async function evaluateExam() {
+      const fileInput = document.getElementById('fileInput');
+      const feedbackDiv = document.getElementById('feedback');
+      const loading = document.getElementById('loading');
+
+      if (!fileInput.files.length) {
+        feedbackDiv.textContent = "⚠️ Please select a PDF or Word document.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      feedbackDiv.textContent = "";
+      loading.style.display = "block";
+
+      try {
+        const response = await fetch("http://localhost:8000/evaluate_exam_sheet/", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        loading.style.display = "none";
+
+        if (response.ok) {
+          feedbackDiv.textContent = data.feedback;
+        } else {
+          feedbackDiv.textContent = "❌ " + (data.feedback || "Failed to evaluate the paper.");
+        }
+      } catch (err) {
+        loading.style.display = "none";
+        feedbackDiv.textContent = "❌ Error: Could not connect to the backend.";
+      }
+    }
+  </script>
+
+</body>
+</html>

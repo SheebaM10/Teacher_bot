@@ -1,49 +1,58 @@
-<!-- question_bot.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Question Bot</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f4f6f8;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
     }
 
     .navbar {
       background-color: #2c3e50;
       color: white;
-      padding: 15px 30px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .hamburger {
+    .navbar .hamburger {
       font-size: 24px;
-      cursor: pointer;
       background: none;
       border: none;
       color: white;
+      cursor: pointer;
+    }
+
+    .navbar-title {
+      font-size: 20px;
+      font-weight: bold;
     }
 
     .dropdown {
       display: none;
       flex-direction: column;
-      background-color: #34495e;
       position: absolute;
       top: 60px;
       left: 0;
-      width: 200px;
-      z-index: 999;
+      background-color: #34495e;
+      width: 220px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 
     .dropdown a {
       color: white;
+      padding: 15px 20px;
       text-decoration: none;
-      padding: 12px 20px;
+      transition: background 0.3s ease;
     }
 
     .dropdown a:hover {
@@ -51,52 +60,71 @@
     }
 
     .chat-container {
-      max-width: 800px;
-      margin: 80px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      height: 80vh;
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      height: 75vh;
       overflow-y: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     .chat-msg {
       margin: 10px 0;
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 20px;
       max-width: 70%;
       word-wrap: break-word;
-      display: inline-block;
+      clear: both;
     }
 
     .bot {
-      background: #e1f5fe;
+      background-color: #e8f5fe;
       float: left;
-      clear: both;
     }
 
     .user {
-      background: #c8e6c9;
+      background-color: #d0f0c0;
       float: right;
-      clear: both;
     }
 
     .controls {
+      max-width: 900px;
+      margin: 20px auto;
       display: flex;
-      justify-content: center;
-      margin-top: 20px;
+      gap: 10px;
+      align-items: center;
     }
 
-    #micBtn {
-      font-size: 24px;
+    #textAnswer {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #textSendBtn, #micBtn {
+      padding: 12px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
       background-color: #2980b9;
       color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #textSendBtn:hover, #micBtn:hover {
+      background-color: #1f6390;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
   </style>
 </head>
@@ -104,7 +132,7 @@
 
   <div class="navbar">
     <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <div>Question Bot</div>
+    <div class="navbar-title">Question Bot</div>
   </div>
 
   <div id="dropdownMenu" class="dropdown">
@@ -117,9 +145,17 @@
   <div class="chat-container" id="chatBox"></div>
 
   <div class="controls">
+    <input type="text" id="textAnswer" placeholder="Type your answer..." />
+    <button id="textSendBtn">Send</button>
     <button id="micBtn">🎤</button>
   </div>
 
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>

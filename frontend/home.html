@@ -1,56 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home - Bot</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #1b1f3b, #1a044c);
+      color: #fff;
+      height: 100vh;
     }
 
     .navbar {
-      background-color: #2c3e50;
+      background-color: #012141;
       color: white;
-      padding: 15px;
+      padding: 15px 30px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .hamburger {
       font-size: 24px;
-      cursor: pointer;
       background: none;
       border: none;
       color: white;
+      cursor: pointer;
     }
 
     .dropdown {
       display: none;
       flex-direction: column;
-      background-color: #34495e;
       position: absolute;
       top: 60px;
       left: 0;
-      width: 200px;
-      padding: 10px 0;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      background-color: #012141;
+      width: 220px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 
     .dropdown a {
       color: white;
+      padding: 15px 20px;
       text-decoration: none;
-      padding: 10px 20px;
-      display: block;
+      transition: background 0.3s ease;
     }
 
     .dropdown a:hover {
       background-color: #3b5998;
     }
 
-    .welcome-message {
-      padding: 20px;
+    .hero {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - 60px);
+      align-items: center;
+      justify-content: center;
+      padding: 0 5%;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      flex: 1 1 50%;
+      max-width: 600px;
+    }
+
+    .hero-left h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #00d2ff;
+    }
+
+    .hero-left p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      padding: 12px 25px;
+      font-size: 1em;
+      background: linear-gradient(45deg, #f81ce5, #7928ca);
+      border: none;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
+    }
+
+    .hero-right {
+      flex: 1 1 40%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-right img {
+      max-width: 550px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+        padding-top: 30px;
+      }
+
+      .hero-left h1 {
+        font-size: 2em;
+      }
+
+      .hero-left p {
+        font-size: 1em;
+      }
+
+      .hero-right img {
+        max-width: 280px;
+      }
     }
   </style>
 </head>
@@ -58,7 +150,7 @@
 
   <div class="navbar">
     <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <div>Welcome to Bot</div>
+    <div class="navbar-title"><b>AI Teacher Bot</b></div>
   </div>
 
   <div id="dropdownMenu" class="dropdown">
@@ -68,15 +160,24 @@
     <a href="evaluation_bot.html">Teacher Evaluation Bot</a>
   </div>
 
-  <div class="welcome-message">
-    <h2>Welcome to Bot!</h2>
-    <p>Select an option from the hamburger menu.</p>
+  <div class="hero">
+    <!-- TEXT ON LEFT -->
+    <div class="hero-left">
+      <h1>Welcome to the <br>Teacher Training Bot</h1>
+      <p>Your all-in-one platform for intelligent question generation, teacher support, and evaluation tools.<br>Empower education with smart technology.</p>
+      <button class="cta-button">Take a Tour</button>
+    </div>
+
+    <!-- IMAGE ON RIGHT -->
+    <div class="hero-right">
+      <img src="AI_Bot.jpg" alt="AI Bot Image" />
+    </div>
   </div>
 
   <script>
     function toggleMenu() {
       const menu = document.getElementById("dropdownMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
   </script>
 
